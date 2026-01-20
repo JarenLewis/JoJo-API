@@ -1,0 +1,243 @@
+#%RAML 1.0
+baseUri: /
+mediaType:
+  - application/json
+protocols:
+  - HTTP
+  - HTTPS
+title: JoJo API
+version: 1.0.0
+description: |
+  # _List of your favorite JoJos, JoBros, Stands, and Parts. _
+
+  **More to come.**
+types:
+  JoBro:
+    description: List of JoBros.
+    properties:
+      jobroId:
+        example: 1
+        type: number
+        format: int
+      jobroName:
+        example: Baron Zeppeli
+        type: string
+      jobroStand?:
+        example: Ripple
+        type: string
+      part:
+        items:
+          example: Phantom Blood
+          type: string
+  JoJo:
+    description: List of JoJos
+    properties:
+      jojoId:
+        example: 1
+        type: number
+        format: int
+      jojoName:
+        example: Jonathon Joestar
+        type: string
+      jojoStand?:
+        example: Hamon
+        type: string
+      part:
+        items:
+          example: Phantom Blood
+          type: string
+  Part:
+    description: List of JoJo Parts
+    properties:
+      partId:
+        example: 1
+        type: number
+        format: int
+      partTitle:
+        example: Phantom Blood
+        type: string
+      jojo?:
+        items:
+          example: Jonathon Joestar
+          type: string
+      jobro?:
+        items:
+          example: Tonpetty
+          type: string
+/jobro:
+  get:
+    responses:
+      "200":
+        body:
+          type: JoBro
+      "400": {}
+      "500": {}
+  post:
+    body:
+      type: JoBro
+    responses:
+      "201":
+        body:
+          example: New JoBro Created
+          type: string
+      "400": {}
+/jojo:
+  get:
+    description: See all JoJos
+    responses:
+      "200":
+        description: Show all JoJos
+        body:
+          type: JoJo
+      "400": {}
+      "500": {}
+  post:
+    body:
+      type: JoJo
+    responses:
+      "201":
+        body:
+          example: New JoJo Created
+          type: string
+      "400": {}
+/part:
+  get:
+    description: See all the parts
+    responses:
+      "200":
+        description: Shows all parts
+        body:
+          type: Part
+      "404":
+        body:
+          type: Part
+      "500": {}
+    securedBy: []
+  post:
+    responses:
+      "201":
+        description: Part Created
+        body:
+          example: New Part Created
+          type: string
+      "400":
+        body:
+          example: Something wrong with the body
+          type: string
+    securedBy: []
+    body:
+      type: Part
+/jojo/{jojoId}:
+  get:
+    responses:
+      "200":
+        body:
+          type: JoJo
+      "204": {}
+      "500": {}
+  put:
+    responses:
+      "200":
+        body:
+          type: JoJo
+      "404": {}
+    body:
+      type: JoJo
+  delete:
+    responses:
+      "200":
+        body:
+          example: Successfully Deleted
+          type: string
+      "204": {}
+      "400": {}
+      "500": {}
+  uriParameters:
+    jojoId:
+      example: 1
+      type: number
+      format: int
+/part/{partId}:
+  get:
+    description: See one part.
+    responses:
+      "200":
+        body:
+          type: Part
+      "404":
+        body:
+          type: Part
+      "500":
+        body:
+          type: Part
+    securedBy: []
+  delete:
+    securedBy: []
+    responses:
+      "204": {}
+      "404":
+        body:
+          example: Whoops theres an internal server error
+          type: string
+      "500":
+        body:
+          example: Whoops theres an internal server error
+          type: string
+      "200":
+        body:
+          example: Successfully Deleted
+          type: string
+  put:
+    responses:
+      "200":
+        body:
+          type: Part
+      "400":
+        body:
+          type: Part
+      "500":
+        body:
+          type: Part
+    securedBy: []
+    body:
+      type: Part
+  uriParameters:
+    partId:
+      example: 1
+      type: number
+      format: int
+/jobro/{jobroId}:
+  get:
+    responses:
+      "200":
+        description: Gets all the JoBros
+        body:
+          type: JoBro
+      "400": {}
+      "500": {}
+  put:
+    body:
+      type: JoBro
+    responses:
+      "200":
+        body:
+          type: JoBro
+      "400": {}
+  delete:
+    responses:
+      "204": {}
+      "404": {}
+      "500": {}
+      "200":
+        body:
+          example: Successfully Deleted
+          type: string
+  uriParameters:
+    jobroId:
+      example: 1
+      type: number
+      format: int
+
+
+
+
